@@ -13,38 +13,44 @@ function dropMenu() {
       .text(name)
       .property("value",name);
   });
+
+   //set default
+  const defaultSample = sampleNames[0];
+
 });
-}
-
-dropMenu()
 
 
 
+// function optionChanged
 
+
+
+function demoInfo(sampleNames) {
 ///////////////////////////////
-// var id = 940
-// var metadata= data.metadata;
-// var info =metadata.filter(sampleId=>sampleId.id === id)
-// console.log(info)
-// console.log(metadata);
+d3.json("samples.json").then((data) =>{
+var id = 940
+var metadata= data.metadata;
+console.log(metadata);
+var info =metadata.filter(sampleId=>sampleId.id == sampleNames[0])
+console.log(info)
 
-// var infoPanel = d3.select('#sample-metadata').html("")
 
-// // Object.entries(sample).forEach(([key,value])=>{
-// //   row = sampleMetadata.append("h6").text(`${key}:${value}`);
-// // console.log(`key:${key} and value:${value}`)
+var infoPanel = d3.select('#sample-metadata').html("");
+
+Object.entries(info).forEach(([key,value])=>{
+  row= infoPanel.append("#sample-metadata").text(`${key}:${value}`);
+console.log(`key:${key} and value:${value}`);
 
 // for (const [key,value] of Object.entries(info)){
 //   infoPanel.append("sample-metadata").text(`${key}`,`${value}`)
 //   console.log(`${key},${value}`);
-// }
+// };
+});
+});
+}
 
-
-
-//   });
-
-
-
+}//dropMenu() end bracket
+dropMenu()
 
 
 // BAR PLOT Slice the first 10 objects for plotting from 2-06
