@@ -22,22 +22,26 @@ d3.json("samples.json").then(function(data) {
  
 
 // Populate Demographic info panel
-// Populate Demographic info panel
+
 // var dropdownMenu = d3.select("#selDataset");
 // var dataset = dropdownMenu.property("value");
 // var info=[]
 // console.log(info)
 
-var infoPanel = d3.select('#sample-metadata')
-infoPanel.html("")
 
-var id = 940;
+
+// var id = d3.select("#onchange");
+///////////////////////////////
+var id = 940
 var metadata= data.metadata;
-var info =metadata.filter(sampleId=>sampleId.id === id)
+var info =metadata.filter(sampleId=>sampleId.id == id)
 console.log(info)
 console.log(metadata);
 
+var infoPanel = d3.select('#sample-metadata').html("")
+
 for (const [key,value] of Object.entries(info)){
+  infoPanel.append("i").text(`${key}`,`${value}`)
   console.log(`${key},${value}`);
 }
 
