@@ -1,13 +1,13 @@
 
-// dropdown select function
+// dropdown select function for selecting/ refreshing page
 function dropMenu() {
 
 // create id dropdown list
   var selection = d3.select("#selDataset");
 
   d3.json("samples.json").then((data) =>{
-    var sampleNames = data.names; 
-    sampleNames.forEach((name)=> {
+    var sampleName = data.names; 
+    sampleName.forEach((name)=> {
       selection
       .append("option")
       .text(name)
@@ -15,38 +15,31 @@ function dropMenu() {
   });
 
    //set default
-  const defaultSample = sampleNames[0];
+  var defaultSample = sampleName[0];
 
+  demoInfo(defaultSample)
 });
 
+function optionChanged(sampleName){
+  demoInfo(sampleName);
+}
 
+// used sample id to poplate infoPanel with details
+function demoInfo(id) {
+  d3.json("samples.json").then((data) =>{
+  var metadata= data.metadata;
+  console.log(metadata);
+  var info =metadata.filter(sampleId=>sampleId.id == id)[0];
+  console.log(info)
 
-// function optionChanged
-
-
-
-function demoInfo(sampleNames) {
-///////////////////////////////
-d3.json("samples.json").then((data) =>{
-var id = 940
-var metadata= data.metadata;
-console.log(metadata);
-var info =metadata.filter(sampleId=>sampleId.id == sampleNames[0])
-console.log(info)
-
-
-var infoPanel = d3.select('#sample-metadata').html("");
-
-Object.entries(info).forEach(([key,value])=>{
-  row= infoPanel.append("#sample-metadata").text(`${key}:${value}`);
-console.log(`key:${key} and value:${value}`);
-
-// for (const [key,value] of Object.entries(info)){
-//   infoPanel.append("sample-metadata").text(`${key}`,`${value}`)
-//   console.log(`${key},${value}`);
-// };
-});
-});
+// Populate demoInfo panel with id information
+  var infoPanel = d3.select('#sample-metadata');
+  infoPanel.html("");
+    Object.entries(info).forEach(([key,value])=>{
+    infoPanel.append("h6").text(`${key}:${value}`);
+    console.log(`key:${key} and value:${value}`);
+    });
+  });
 }
 
 }//dropMenu() end bracket
