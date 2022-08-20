@@ -1,3 +1,5 @@
+
+// Create listner function for changes on dropdown
 function optionChanged(sampleName) {
   demoInfo(sampleName);
   hBar(sampleName);
@@ -65,6 +67,11 @@ function hBar(id) {
       text: otu_labels.slice(0, 10).reverse(),
       orientation: "h",
 
+      marker: {
+        color: otu_ids,
+        colorscale: "Earth",
+      }
+
     }]
 
     var layout = {
@@ -100,12 +107,8 @@ function bubble(id) {
       
       marker: {
         size: size,
-         //set 'sizeref' to an 'ideal' size given by the formula sizeref = 
-        //  2. * max(array_of_size_values) / (desired_maximum_marker_size ** 2)
-        sizeref:2.*Math.max(size)/(40.**2),
-        sizemin:4,
-        sizemode: "area",
         color: otu_ids,
+        colorscale: "Earth",
       }
     }]
 
